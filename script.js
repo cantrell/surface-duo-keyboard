@@ -219,7 +219,7 @@ function doPortrait() {
     let translateLeft = (screenHeight.height - singleScreenWidth.width) / 2;
     let translateTop = (fullScreenWidth.width - singleScreenWidth.width) - translateLeft;
     keyboard.classList.toggle("keyboard-opaque");
-    keyboard.style.transform = "rotate(-90deg) translate("+translateLeft+"px, "+translateTop+"px)"; // left/x, top/y
+    keyboard.style.transform = "rotate(-90deg) translate("+Math.floor(translateLeft)+"px, "+translateTop+"px)";
 }
 
 function doLandscape() {
@@ -243,9 +243,6 @@ function toggleSpeed(e) {
             return;
         }
     }
-    // keyboard.classList.toggle("keyboard-opaque");
-
-
 }
 
 function removeAllChildren(e) { while (e.hasChildNodes()) { e.removeChild(e.firstChild);} };
