@@ -1,0 +1,148 @@
+body {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+#menu {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+#main {
+    /* border: 1px solid red; */
+    position: absolute;
+    /* top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; */
+}
+
+#duo {
+    visibility: hidden;
+    position: absolute;
+    /* width: 1080px;
+    height: 847px; */
+    /* opacity: .25; */
+}
+
+#screen {
+    visibility: hidden;
+    position: absolute;
+}
+
+.content {
+    position: absolute;
+}
+
+#chat {
+    /* background-color: #ff0000; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    /* padding: 10px; */
+}
+
+.chat-bubble {
+    width: 90%;
+    margin: 0 auto 0 auto;
+}
+
+#text-input {
+    border: 1px solid #cbcbcb;
+    border-radius: 20px;
+    width: 70%;
+    height: 30px;
+    margin: 0 auto 0 auto;
+}
+
+#wallpaper {
+    background: linear-gradient(#5f97f6, #ffffff);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+#status {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+}
+
+.status-item {
+    /* height: 16px; */
+    height: 1vh;
+    padding: 2px;
+    opacity: .75;
+}
+
+#time-and-date {
+    text-align: center;
+}
+
+.time {
+    font-family: Helvetica, sans-serif;
+    color: #ffffff;
+    line-height: 50px;
+    font-size: 52px;
+    font-weight: 600;
+    text-shadow: 0px 0px 3px #b7b7b7;
+}
+
+#date {
+    font-size: 12px;
+}
+
+
+/* Key colors */
+
+
+:root {
+    --regular-key-color: #484C4F;
+    --meta-key-color: #373C40;
+    --return-key-color: #549AF7;
+    --keyboard-background-color-transparent: rgba(40, 46, 50, 0);
+    --keyboard-background-color-opaque: rgba(40, 46, 50, 1);
+}
+
+#keyboard {
+    background-color: var(--keyboard-background-color-transparent);
+}
+
+.keyboard-opaque {
+    background-color: var(--keyboard-background-color-opaque) !important;
+}
+
+.key {
+    position: absolute;
+}
+
+.regular-key {
+    background-color: var(--regular-key-color);
+}
+
+.meta-key {
+    background-color: var(--meta-key-color);
+}
+
+.return-key {
+    background-color: var(--return-key-color);
+}
+
+.space-bar {
+    background-color: var(--regular-key-color);
+}
+
+/* Animations */
+
+.animatable {
+    transition: all 0.5s ease-in-out;
+    /* transition: all 2.5s ease-in-out; */
+}
+
+/* .fadable {
+    -webkit-transition: opacity .25s ease-in;
+    -moz-transition: opacity .25s ease-in;
+} */

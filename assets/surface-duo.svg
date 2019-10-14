@@ -1,0 +1,56 @@
+<svg id="Component_8" data-name="Component 8" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2099.999" height="2100" viewBox="0 0 2099.999 2100">
+  <defs>
+    <filter id="Body_Background" x="158" y="338" width="1784.802" height="1426" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="15" result="blur"/>
+      <feFlood/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <path id="Clipping_Mask" data-name="Clipping Mask" d="M-11684-2543h-2100V-4643h2100v2100Zm-1850-1575v1051h1601V-4118Z" transform="translate(13784 4643)" fill="#fff"/>
+  <g id="Programmatic_Rulers" data-name="Programmatic Rulers" transform="translate(213 394)">
+    <rect id="Screen_Height" data-name="Screen Height" width="10" height="1049" transform="translate(28 133)" fill="lime"/>
+    <rect id="Single_Screen_Width" data-name="Single Screen Width" width="781" height="10" transform="translate(38 1181)" fill="lime"/>
+    <rect id="Full_Screen_Width" data-name="Full Screen Width" width="1599" height="10" transform="translate(38 122)" fill="lime"/>
+  </g>
+  <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Body_Background)">
+    <g id="Body_Background-2" data-name="Body Background" transform="translate(218 398)" fill="none" stroke="#d1d1d1" stroke-linecap="square" stroke-linejoin="round" stroke-width="15">
+      <rect width="1664.802" height="1306" rx="85" stroke="none"/>
+      <rect x="-7.5" y="-7.5" width="1679.802" height="1321" rx="92.5" fill="none"/>
+    </g>
+  </g>
+  <path id="Union_2" data-name="Union 2" d="M-3556,1044a85.641,85.641,0,0,1-17.13-1.727,84.569,84.569,0,0,1-15.956-4.953,85.04,85.04,0,0,1-14.438-7.837,85.535,85.535,0,0,1-12.58-10.379,85.614,85.614,0,0,1-10.379-12.579,84.989,84.989,0,0,1-7.837-14.438,84.567,84.567,0,0,1-4.953-15.955A85.631,85.631,0,0,1-3641,959V-185a85.632,85.632,0,0,1,1.727-17.13,84.567,84.567,0,0,1,4.953-15.955,85.056,85.056,0,0,1,7.837-14.438A85.639,85.639,0,0,1-3616.1-245.1a85.592,85.592,0,0,1,12.58-10.379,84.968,84.968,0,0,1,14.438-7.837,84.614,84.614,0,0,1,15.956-4.953A85.644,85.644,0,0,1-3556-270h1505a85.638,85.638,0,0,1,17.13,1.727,84.61,84.61,0,0,1,15.955,4.953,84.963,84.963,0,0,1,14.438,7.837A85.592,85.592,0,0,1-1990.9-245.1a85.65,85.65,0,0,1,10.38,12.58,85.027,85.027,0,0,1,7.837,14.438,84.546,84.546,0,0,1,4.953,15.955A85.629,85.629,0,0,1-1966-185V959a85.629,85.629,0,0,1-1.727,17.13,84.546,84.546,0,0,1-4.953,15.955,84.968,84.968,0,0,1-7.837,14.438,85.617,85.617,0,0,1-10.38,12.579,85.535,85.535,0,0,1-12.58,10.379,85.025,85.025,0,0,1-14.438,7.837,84.57,84.57,0,0,1-15.955,4.953A85.636,85.636,0,0,1-2051,1044Zm1552-133V-138H-3603V911h781V-138h37V911Z" transform="translate(3854 664)"/>
+  <g id="Vertical_Hinges" data-name="Vertical Hinges" transform="translate(111 325)">
+    <rect id="Left_V_Hinge" data-name="Left V Hinge" width="10" height="1314" transform="translate(927 69)" fill="#d7ced7"/>
+    <rect id="Right_V_Hinge" data-name="Right V Hinge" width="10" height="1314" transform="translate(942 69)" fill="#414045"/>
+  </g>
+  <g id="Bottom_Hinge" data-name="Bottom Hinge" transform="translate(112 319)">
+    <path id="Path_2" data-name="Path 2" d="M14,0c7.732,0,14,4.7,14,10.5S21.732,21,14,21,0,16.3,0,10.5,6.268,0,14,0Z" transform="translate(925 1315)" fill="#313131"/>
+    <g id="Hinge" transform="translate(893 1321)">
+      <rect id="Bottom_Hinge-2" data-name="Bottom Hinge" width="91" height="62" rx="10" fill="#7e7d7c"/>
+      <path id="Rectangle_1" data-name="Rectangle 1" d="M0,0H0A10,10,0,0,1,10,10V52A10,10,0,0,1,0,62H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z" transform="translate(81)" fill="#d8d8d8"/>
+      <path id="Rectangle_2" data-name="Rectangle 2" d="M10,0h0a0,0,0,0,1,0,0V62a0,0,0,0,1,0,0h0A10,10,0,0,1,0,52V10A10,10,0,0,1,10,0Z" fill="#5b5b5c"/>
+      <rect id="Rectangle_3" data-name="Rectangle 3" width="6" height="62" transform="translate(14)" fill="#5b5b5c"/>
+      <rect id="Rectangle_5" data-name="Rectangle 5" width="6" height="62" transform="translate(20)" fill="#6d6d6e"/>
+      <path id="Path_1" data-name="Path 1" d="M0,0H4V62H0Z" transform="translate(10)" fill="#d8d8d8"/>
+    </g>
+  </g>
+  <g id="Top_Hinge" data-name="Top Hinge" transform="translate(111 325)">
+    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="14" cy="10.5" rx="14" ry="10.5" transform="translate(925 122)" fill="#313131"/>
+    <g id="Hinge-2" data-name="Hinge" transform="translate(894 75)">
+      <rect id="Bottom_Hinge-3" data-name="Bottom Hinge" width="91" height="62" rx="10" fill="#7e7d7c"/>
+      <path id="Rectangle_1-2" data-name="Rectangle 1" d="M0,0H0A10,10,0,0,1,10,10V52A10,10,0,0,1,0,62H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z" transform="translate(81)" fill="#d8d8d8"/>
+      <path id="Rectangle_2-2" data-name="Rectangle 2" d="M10,0h0a0,0,0,0,1,0,0V62a0,0,0,0,1,0,0h0A10,10,0,0,1,0,52V10A10,10,0,0,1,10,0Z" fill="#5b5b5c"/>
+      <rect id="Rectangle_3-2" data-name="Rectangle 3" width="6" height="62" transform="translate(14)" fill="#5b5b5c"/>
+      <rect id="Rectangle_5-2" data-name="Rectangle 5" width="6" height="62" transform="translate(20)" fill="#6d6d6e"/>
+      <path id="Path_1-2" data-name="Path 1" d="M0,0H4V62H0Z" transform="translate(10)" fill="#d8d8d8"/>
+    </g>
+  </g>
+  <g id="Camera" transform="translate(63 334)">
+    <circle id="Ellipse_3" data-name="Ellipse 3" cx="19.5" cy="19.5" r="19.5" transform="translate(1502 123)" fill="#414141"/>
+    <circle id="Ellipse_4" data-name="Ellipse 4" cx="12.5" cy="12.5" r="12.5" transform="translate(1509 130)" fill="#505050"/>
+    <circle id="Ellipse_5" data-name="Ellipse 5" cx="5.5" cy="5.5" r="5.5" transform="translate(1516 137)" fill="#656565"/>
+  </g>
+  <rect id="Speaker_Grill" data-name="Speaker Grill" width="106" height="11" transform="translate(1418 471)" fill="#414141"/>
+</svg>

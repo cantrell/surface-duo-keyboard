@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="482" height="95" viewBox="0 0 482 95">
+  <g id="Message_1" data-name="Message 1" transform="translate(-174 -226)">
+    <g id="Avatar_1_-_1" data-name="Avatar 1 - 1" transform="translate(174 226)">
+      <circle id="Ellipse_6" data-name="Ellipse 6" cx="47.5" cy="47.5" r="47.5" fill="#efefef"/>
+      <path id="Polygon_1" data-name="Polygon 1" d="M28.5,0,57,49H0Z" transform="translate(19 18)" fill="#5f97f6"/>
+    </g>
+    <g id="Speech_-_1" data-name="Speech - 1" transform="translate(294 226)">
+      <path id="Union_1" data-name="Union 1" d="M170-1602a30,30,0,0,1-30-30v-42.626L108-1697H440a30,30,0,0,1,30,30v35a30,30,0,0,1-30,30Z" transform="translate(-108 1697)" fill="#efefef"/>
+    </g>
+  </g>
+</svg>
