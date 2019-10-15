@@ -8,13 +8,13 @@
     </head>
     <body>
         <div id="menu">
+            <input type="checkbox" id="speed-toggle" onclick="toggleSpeed(event);"><label for="speed-toggle">Slow motion</label>
             <ol>
                 <li onclick="doPortrait()">Portrait</li>
                 <li onclick="doLandscape()">Landscape</li>
                 <!-- <li onclick="showKeyboard()">Show Keyboard</li>
                 <li onclick="hideKeyboard()">Hide Keyboard</li> -->
             </ol>
-            <input type="checkbox" id="speed-toggle" onclick="toggleSpeed(event);"><label for="speed-toggle">Slow motion</label>
         </div>
 
         <div id="main"></div>
