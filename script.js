@@ -1,8 +1,9 @@
-const REGULAR_KEY = "regular-key";
-const META_KEY    = "meta-key";
-const SPACE_BAR   = "space-bar";
-const RETURN_KEY  = "return-key";
-const SPACER      = "spacer";
+const REGULAR_KEY  = "regular-key";
+const META_KEY     = "meta-key";
+const SPACE_BAR    = "space-bar";
+const FUNCTION_KEY = "function-key";
+const RETURN_KEY   = "return-key";
+const SPACER       = "spacer";
 
 const ORIENTATION = {
     PORTRAIT: "portrait",
@@ -14,48 +15,55 @@ let keyboard;
 
 const KEYS = [
     [
-        {id:"q", type:REGULAR_KEY, class:REGULAR_KEY},
-        {id:"w", type:REGULAR_KEY, class:REGULAR_KEY},
-        {id:"e", type:REGULAR_KEY, class:REGULAR_KEY},
-        {id:"r", type:REGULAR_KEY, class:REGULAR_KEY},
-        {id:"t", type:REGULAR_KEY, class:REGULAR_KEY},
-        {id:"y", type:REGULAR_KEY, class:REGULAR_KEY},
-        {id:"u", type:REGULAR_KEY, class:REGULAR_KEY},
-        {id:"i", type:REGULAR_KEY, class:REGULAR_KEY},
-        {id:"o", type:REGULAR_KEY, class:REGULAR_KEY},
-        {id:"p", type:REGULAR_KEY, class:REGULAR_KEY}
+        {id:"func-1", type:FUNCTION_KEY, class:[FUNCTION_KEY]},
+        {id:"func-2", type:FUNCTION_KEY, class:[FUNCTION_KEY]},
+        {id:"func-3", type:FUNCTION_KEY, class:[FUNCTION_KEY]},
+        {id:"func-4", type:FUNCTION_KEY, class:[FUNCTION_KEY]},
+        {id:"func-5", type:FUNCTION_KEY, class:[FUNCTION_KEY]}
+    ],
+    [
+        {id:"q", type:REGULAR_KEY, class:[REGULAR_KEY]},
+        {id:"w", type:REGULAR_KEY, class:[REGULAR_KEY]},
+        {id:"e", type:REGULAR_KEY, class:[REGULAR_KEY]},
+        {id:"r", type:REGULAR_KEY, class:[REGULAR_KEY]},
+        {id:"t", type:REGULAR_KEY, class:[REGULAR_KEY]},
+        {id:"y", type:REGULAR_KEY, class:[REGULAR_KEY, "splittable"]},
+        {id:"u", type:REGULAR_KEY, class:[REGULAR_KEY, "splittable"]},
+        {id:"i", type:REGULAR_KEY, class:[REGULAR_KEY, "splittable"]},
+        {id:"o", type:REGULAR_KEY, class:[REGULAR_KEY, "splittable"]},
+        {id:"p", type:REGULAR_KEY, class:[REGULAR_KEY, "splittable"]}
     ],
     [
         {type:SPACER},
-        {id:"a", type:REGULAR_KEY, class:REGULAR_KEY},
-        {id:"s", type:REGULAR_KEY, class:REGULAR_KEY},
-        {id:"d", type:REGULAR_KEY, class:REGULAR_KEY},
-        {id:"f", type:REGULAR_KEY, class:REGULAR_KEY},
-        {id:"g", type:REGULAR_KEY, class:REGULAR_KEY},
-        {id:"h", type:REGULAR_KEY, class:REGULAR_KEY},
-        {id:"j", type:REGULAR_KEY, class:REGULAR_KEY},
-        {id:"k", type:REGULAR_KEY, class:REGULAR_KEY},
-        {id:"l", type:REGULAR_KEY, class:REGULAR_KEY},
+        {id:"a", type:REGULAR_KEY, class:[REGULAR_KEY]},
+        {id:"s", type:REGULAR_KEY, class:[REGULAR_KEY]},
+        {id:"d", type:REGULAR_KEY, class:[REGULAR_KEY]},
+        {id:"f", type:REGULAR_KEY, class:[REGULAR_KEY]},
+        {id:"g", type:REGULAR_KEY, class:[REGULAR_KEY]},
+        {id:"h", type:REGULAR_KEY, class:[REGULAR_KEY, "splittable"]},
+        {id:"j", type:REGULAR_KEY, class:[REGULAR_KEY, "splittable"]},
+        {id:"k", type:REGULAR_KEY, class:[REGULAR_KEY, "splittable"]},
+        {id:"l", type:REGULAR_KEY, class:[REGULAR_KEY, "splittable"]},
         {type:SPACER}
     ],
     [
-        {id:"shift", type:META_KEY, class:META_KEY},
-        {id:"z", type:REGULAR_KEY, class:REGULAR_KEY},
-        {id:"x", type:REGULAR_KEY, class:REGULAR_KEY},
-        {id:"c", type:REGULAR_KEY, class:REGULAR_KEY},
-        {id:"v", type:REGULAR_KEY, class:REGULAR_KEY},
-        {id:"b", type:REGULAR_KEY, class:REGULAR_KEY},
-        {id:"n", type:REGULAR_KEY, class:REGULAR_KEY},
-        {id:"m", type:REGULAR_KEY, class:REGULAR_KEY},
-        {id:"backspace", type:META_KEY, class:META_KEY}
+        {id:"shift", type:META_KEY, class:[META_KEY]},
+        {id:"z", type:REGULAR_KEY, class:[REGULAR_KEY]},
+        {id:"x", type:REGULAR_KEY, class:[REGULAR_KEY]},
+        {id:"c", type:REGULAR_KEY, class:[REGULAR_KEY]},
+        {id:"v", type:REGULAR_KEY, class:[REGULAR_KEY, "splittable"]},
+        {id:"b", type:REGULAR_KEY, class:[REGULAR_KEY, "splittable"]},
+        {id:"n", type:REGULAR_KEY, class:[REGULAR_KEY, "splittable"]},
+        {id:"m", type:REGULAR_KEY, class:[REGULAR_KEY, "splittable"]},
+        {id:"backspace", type:META_KEY, class:[META_KEY, "splittable"]}
     ],
     [
-        {id:"numeric", type:META_KEY, class:META_KEY},
-        {id:"comma", type:REGULAR_KEY, class:META_KEY},
-        {id:"left-space-bar", type:SPACE_BAR, class:REGULAR_KEY},
-        {id:"right-space-bar", type:SPACE_BAR, class:REGULAR_KEY},
-        {id:"period", type:REGULAR_KEY, class:META_KEY},
-        {id:"return", type:META_KEY, class:RETURN_KEY}
+        {id:"numeric", type:META_KEY, class:[META_KEY]},
+        {id:"comma", type:REGULAR_KEY, class:[META_KEY]},
+        {id:"left-space-bar", type:SPACE_BAR, class:[REGULAR_KEY]},
+        {id:"right-space-bar", type:SPACE_BAR, class:[REGULAR_KEY, "splittable"]},
+        {id:"period", type:REGULAR_KEY, class:[META_KEY, "splittable"]},
+        {id:"return", type:META_KEY, class:[RETURN_KEY, "splittable"]}
     ]
 ]
 
@@ -129,23 +137,25 @@ function pad(value) {
 }
 
 function getKeyDimensions(orientation) {
-    let keyGap, keyWidth, keyHeight;
+    let keyGap, keyWidth, keyHeight, funcKeyHeight;
     if (orientation === ORIENTATION.LANDSCAPE) {
         keyGap = singleScreenWidth.width * 0.015;
         keyWidth = (singleScreenWidth.width / 10) - (keyGap + (keyGap / 10));
         keyHeight = ((parseInt(keyboard.style.height) - (keyGap * 5)) / 4);
+        funcKeyHeight = 0;
     } else { // PORTRAIT
-        keyGap = singleScreenWidth.width * 0.025;
+        keyGap = singleScreenWidth.width * 0.015;
         keyWidth = (screenHeight.height / 10) - (keyGap + (keyGap / 10));
-        keyHeight = ((singleScreenWidth.width - (keyGap * 5)) / 4);
+        keyHeight = ((singleScreenWidth.width - (keyGap * 6)) / 5);
+        funcKeyHeight = keyHeight;
     }
     return {
         keyGap: keyGap,
-        keyHeight: keyHeight,
-        [REGULAR_KEY]: keyWidth,
-        [META_KEY]: ((keyWidth / 2) + keyWidth) + (keyGap / 2),
-        [SPACE_BAR]: (keyWidth * 2.5) + (keyGap * 2),
-        [SPACER]: (keyWidth / 2) + (keyGap / 2)
+        [REGULAR_KEY]: {w:keyWidth, h:keyHeight},
+        [META_KEY]: {w:((keyWidth / 2) + keyWidth) + (keyGap / 2), h:keyHeight},
+        [FUNCTION_KEY]: {w:(keyWidth * 2) + keyGap, h:funcKeyHeight},
+        [SPACE_BAR]: {w:(keyWidth * 2.5) + (keyGap * 2), h:keyHeight},
+        [SPACER]: {w:(keyWidth / 2) + (keyGap / 2), h:keyHeight}
     };
 }
 
@@ -164,7 +174,9 @@ function renderKeyboard() {
             let newKey = document.createElement("div");
             newKey.setAttribute("data-type", key.type);
             newKey.setAttribute("id", key.id);
-            newKey.setAttribute("class", "animatable key " + key.class);
+            let classList = "animatable key";
+            if (key.class) classList += (" " + key.class.join(" "));
+            newKey.setAttribute("class", classList);
             keyboard.appendChild(newKey);
         })
     })
@@ -174,30 +186,30 @@ function layKeyboardOut(orientation) {
     keyboard.style.width = ((orientation === ORIENTATION.LANDSCAPE) ? singleScreenWidth.width : screenHeight.height) + "px";
     keyboard.style.height = ((orientation === ORIENTATION.LANDSCAPE) ? (screenHeight.height - contentHeight) : singleScreenWidth.width) + "px";
     let keyData = getKeyDimensions(orientation);
-    let top = keyData.keyGap;
+    let top = keyData.keyGap, lastKeyHeight;
     KEYS.forEach(row => {
         let left = keyData.keyGap;
         row.forEach(key => {
             if (key.type === SPACER) {
-                left += keyData[SPACER];
+                left += keyData[SPACER].w;
                 return;
             }
             let newKey = document.getElementById(key.id);
-            newKey.setAttribute("data-type", key.type);
-            newKey.setAttribute("id", key.id);
-            newKey.setAttribute("class", "animatable key " + key.class);
-            newKey.style.width = keyData[key.type] + "px";
+            newKey.style.width = keyData[key.type].w + "px";
+            // newKey.innerHTML = key.id;
             // Hack to cover up the occasional gap between spacebars due to pixel rounding.
             if (key.id === "left-space-bar") {
                 newKey.style.width = (parseInt(newKey.style.width) + 1) + "px";
             }
-            newKey.style.height = keyData.keyHeight + "px";
+            newKey.style.height = keyData[key.type].h + "px";
             newKey.style.top = top + "px";
             newKey.style.left = left + "px";
-            left += keyData[key.type];
+            left += keyData[key.type].w;
             if (key.id !== "left-space-bar") left += keyData.keyGap;
-        })
-        top += (keyData.keyHeight + keyData.keyGap);
+            lastKeyHeight = keyData[key.type].h;
+        });
+        // Compensate for 0-height function keys.
+        if (lastKeyHeight !== 0) top += (lastKeyHeight + keyData.keyGap);
     })
 }
 
@@ -234,6 +246,76 @@ function doLandscape() {
     let keyboard = id("keyboard");
     keyboard.classList.toggle("keyboard-opaque");
     keyboard.style.transform = "rotate(0deg)";
+}
+
+let keyboardAnimationData = {
+    keyList:[],
+    transitionIncrement: 0,
+    patterns: {
+        topToBottom: ["p", "o", "i", "u", "y", "l", "k", "j", "h", "backspace", "m", "n", "b", "v", "return", "period", "right-space-bar"],
+        bottomToTop: ["return", "period", "right-space-bar", "backspace", "m", "n", "b", "v", "l", "k", "j", "h", "p", "o", "i", "u", "y"],
+        rightToLeftTop: ["p", "l", "backspace", "return", "o", "k", "m", "period", "i", "j", "n", "right-space-bar", "u", "h", "b", "y", "v"],
+        rightToLeftBottom: ["return", "backspace", "l", "p", "period", "m", "k", "o", "right-space-bar", "n", "j", "i", "b", "h", "u", "v", "y"]
+    }
+};
+
+function animateKeyboard(order) {
+    let keyList, transitionIncrement;
+    // Apparently not needed. Delete.
+    // let keyboard = id("keyboard");
+    // keyboard.style.width = fullScreenWidth.width + "px";
+    switch (order) {
+        case 'simple':
+            keyboardAnimationData.keyList = keyboardAnimationData.patterns.topToBottom.slice();
+            keyboardAnimationData.transitionIncrement = 0;
+            break;
+        case 'top-to-bottom':
+            keyboardAnimationData.keyList = keyboardAnimationData.patterns.topToBottom.slice();
+            keyboardAnimationData.transitionIncrement = .1;
+            break;
+        case 'bottom-to-top':
+            keyboardAnimationData.keyList = keyboardAnimationData.patterns.bottomToTop.slice();
+            keyboardAnimationData.transitionIncrement = .1;
+            break;
+        case 'right-to-left-top':
+            keyboardAnimationData.keyList = keyboardAnimationData.patterns.rightToLeftTop.slice();
+            keyboardAnimationData.transitionIncrement = .1;
+            break;
+        case 'right-to-left-bottom':
+            keyboardAnimationData.keyList = keyboardAnimationData.patterns.rightToLeftBottom.slice();
+            keyboardAnimationData.transitionIncrement = .1;
+            break;
+        case 'random':
+            let allKeys = keyboardAnimationData.patterns.topToBottom.slice(), randomKeys = [];
+            while (allKeys.length > 0) {
+                let rnd = Math.floor(Math.random() * allKeys.length);
+                randomKeys[randomKeys.length] = allKeys.splice(rnd, 1)[0];
+            }
+            keyboardAnimationData.keyList = randomKeys;
+            keyboardAnimationData.transitionIncrement = .1;
+            break;
+        }
+
+    let transitionDelay = 0;
+    keyboardAnimationData.keyList.forEach(keyId => {
+        let key = id(keyId);
+        key.style["transition-delay"] = (transitionDelay+=keyboardAnimationData.transitionIncrement) + "s";
+        key.style.left = (parseInt(key.style.left) + (fullScreenWidth.width - singleScreenWidth.width) + "px");
+    });
+}
+
+function joinKeyboard() {
+    keyboardAnimationData.keyList.reverse();
+    let transitionDelay = 0;
+    keyboardAnimationData.keyList.forEach(keyId => {
+        let key = id(keyId);
+        key.style["transition-delay"] = (transitionDelay+=keyboardAnimationData.transitionIncrement) + "s";
+        key.addEventListener("transitionend", (e) => {
+            e.target.style['transition-delay'] = "0s";
+            // console.log(e.target.style['transition-delay'])
+        })
+        key.style.left = (parseInt(key.style.left) - (fullScreenWidth.width - singleScreenWidth.width) + "px");
+    });    
 }
 
 function toggleSpeed(e) {

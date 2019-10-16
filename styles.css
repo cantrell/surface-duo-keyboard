@@ -1,3 +1,14 @@
+/* Animations */
+
+.animatable {
+    transition: all 0.5s ease-in-out;
+}
+
+/* .fadable {
+    -webkit-transition: opacity .25s ease-in;
+    -moz-transition: opacity .25s ease-in;
+} */
+
 body {
     padding: 0;
     margin: 0;
@@ -127,6 +138,11 @@ body {
     background-color: var(--meta-key-color);
 }
 
+.function-key {
+    background-color: var(--meta-key-color);
+    border-radius: 7px;
+}
+
 .return-key {
     background-color: var(--return-key-color);
 }
@@ -134,15 +150,3 @@ body {
 .space-bar {
     background-color: var(--regular-key-color);
 }
-
-/* Animations */
-
-.animatable {
-    transition: all 0.5s ease-in-out;
-    /* transition: all 2.5s ease-in-out; */
-}
-
-/* .fadable {
-    -webkit-transition: opacity .25s ease-in;
-    -moz-transition: opacity .25s ease-in;
-} */

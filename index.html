@@ -10,10 +10,19 @@
         <div id="menu">
             <input type="checkbox" id="speed-toggle" onclick="toggleSpeed(event);"><label for="speed-toggle">Slow motion</label>
             <ol>
-                <li onclick="doPortrait()">Portrait</li>
-                <li onclick="doLandscape()">Landscape</li>
-                <!-- <li onclick="showKeyboard()">Show Keyboard</li>
-                <li onclick="hideKeyboard()">Hide Keyboard</li> -->
+                <li onclick="doPortrait()">Portrait Mode</li>
+                <li onclick="doLandscape()">Landscape Mode</li>
+                <li>Split Keyboard...
+                    <ul>
+                        <li onclick="animateKeyboard('simple')">Simple</li>
+                        <li onclick="animateKeyboard('top-to-bottom')">Top to Bottom</li>
+                        <li onclick="animateKeyboard('bottom-to-top')">Bottom to Top</li>
+                        <li onclick="animateKeyboard('right-to-left-top')">Right to Left (starting from the top)</li>
+                        <li onclick="animateKeyboard('right-to-left-bottom')">Right to Left (starting from the bottom)</li>
+                        <li onclick="animateKeyboard('random')">Random</li>
+                    </ul>
+                </li>
+                <li onclick="joinKeyboard('join')">Join Keyboard</li>
             </ol>
         </div>
 
