@@ -11,7 +11,7 @@ const ORIENTATION = {
 };
 
 let fullScreenWidth, singleScreenWidth, screenHeight, contentHeight;
-let keyboard;
+let inFlight = 0;
 
 const KEYS = [
     [
@@ -88,6 +88,7 @@ function doLayout() {
 
     duo.style.top = (winH / 2) - (duo.height / 2) + "px";
     duo.style.left = (winW / 2) - (duo.width / 2) + "px";
+    duo.addEventListener("transitionend", e => {inFlight = 0;});
 
     fullScreenWidth = duo.contentDocument.getElementById("Full_Screen_Width").getBoundingClientRect();
     singleScreenWidth = duo.contentDocument.getElementById("Single_Screen_Width").getBoundingClientRect();
@@ -136,12 +137,18 @@ function pad(value) {
     return (value > 9) ? value : "0" + value;
 }
 
+// States: inactive (all), landscape (all -portrait), portrait (all -landscape), split (all -)
+
+function evalMenu(state) {
+
+}
+
 function getKeyDimensions(orientation) {
     let keyGap, keyWidth, keyHeight, funcKeyHeight;
     if (orientation === ORIENTATION.LANDSCAPE) {
         keyGap = singleScreenWidth.width * 0.015;
         keyWidth = (singleScreenWidth.width / 10) - (keyGap + (keyGap / 10));
-        keyHeight = ((parseInt(keyboard.style.height) - (keyGap * 5)) / 4);
+        keyHeight = ((parseInt(id("keyboard").style.height) - (keyGap * 5)) / 4);
         funcKeyHeight = 0;
     } else { // PORTRAIT
         keyGap = singleScreenWidth.width * 0.015;
@@ -161,7 +168,7 @@ function getKeyDimensions(orientation) {
 
 function renderKeyboard() {
     let screen = id("screen");
-    keyboard = document.createElement("div");
+    let keyboard = document.createElement("div");
     keyboard.style.position = "absolute";
     keyboard.style.bottom = "0px";
     keyboard.style.left = "0px";
@@ -177,12 +184,18 @@ function renderKeyboard() {
             let classList = "animatable key";
             if (key.class) classList += (" " + key.class.join(" "));
             newKey.setAttribute("class", classList);
+            newKey.addEventListener("transitionend", (e) => {
+                e.target.style['transition-delay'] = "0s";
+                inFlight--;
+                console.log(inFlight);
+            })
             keyboard.appendChild(newKey);
         })
     })
 }
 
 function layKeyboardOut(orientation) {
+    let keyboard = id("keyboard");
     keyboard.style.width = ((orientation === ORIENTATION.LANDSCAPE) ? singleScreenWidth.width : screenHeight.height) + "px";
     keyboard.style.height = ((orientation === ORIENTATION.LANDSCAPE) ? (screenHeight.height - contentHeight) : singleScreenWidth.width) + "px";
     let keyData = getKeyDimensions(orientation);
@@ -206,17 +219,21 @@ function layKeyboardOut(orientation) {
             newKey.style.left = left + "px";
             left += keyData[key.type].w;
             if (key.id !== "left-space-bar") left += keyData.keyGap;
-            lastKeyHeight = keyData[key.type].h;
+            lastKeyHeight = keyData[key.type].h;            
         });
         // Compensate for 0-height function keys.
         if (lastKeyHeight !== 0) top += (lastKeyHeight + keyData.keyGap);
     })
 }
 
-function hideKeyboard() {
+function ani(func, args) { // animate
+    console.log(inFlight)
+    if (inFlight > 0) return;
+    func.apply(this, [args]);
 }
 
-function doPortrait() {
+function portrait() {
+    inFlight = 41;
     for (let e of document.getElementsByClassName("content")) {
         let translate = ((screenHeight.height - parseInt(e.style.width, 10)) / 2) * -1;
         e.style.width = screenHeight.height + "px";
@@ -234,7 +251,8 @@ function doPortrait() {
     keyboard.style.transform = "rotate(-90deg) translate("+Math.floor(translateLeft)+"px, "+translateTop+"px)";
 }
 
-function doLandscape() {
+function landscape() {
+    inFlight = 41;
     for (let e of document.getElementsByClassName("content")) {
         e.style.width = singleScreenWidth.width + "px";
         e.style.height = contentHeight + "px";
@@ -259,11 +277,8 @@ let keyboardAnimationData = {
     }
 };
 
-function animateKeyboard(order) {
+function ak(order) { // animate keyboard
     let keyList, transitionIncrement;
-    // Apparently not needed. Delete.
-    // let keyboard = id("keyboard");
-    // keyboard.style.width = fullScreenWidth.width + "px";
     switch (order) {
         case 'simple':
             keyboardAnimationData.keyList = keyboardAnimationData.patterns.topToBottom.slice();
@@ -297,6 +312,7 @@ function animateKeyboard(order) {
         }
 
     let transitionDelay = 0;
+    inFlight = keyboardAnimationData.keyList.length;
     keyboardAnimationData.keyList.forEach(keyId => {
         let key = id(keyId);
         key.style["transition-delay"] = (transitionDelay+=keyboardAnimationData.transitionIncrement) + "s";
@@ -304,16 +320,14 @@ function animateKeyboard(order) {
     });
 }
 
-function joinKeyboard() {
+// TODO: Count animation end events, and when all are done, call a function that evaulates menu items.
+function jk() { // join keyboard
     keyboardAnimationData.keyList.reverse();
     let transitionDelay = 0;
+    inFlight = keyboardAnimationData.keyList.length;
     keyboardAnimationData.keyList.forEach(keyId => {
         let key = id(keyId);
         key.style["transition-delay"] = (transitionDelay+=keyboardAnimationData.transitionIncrement) + "s";
-        key.addEventListener("transitionend", (e) => {
-            e.target.style['transition-delay'] = "0s";
-            // console.log(e.target.style['transition-delay'])
-        })
         key.style.left = (parseInt(key.style.left) - (fullScreenWidth.width - singleScreenWidth.width) + "px");
     });    
 }

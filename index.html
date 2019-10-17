@@ -9,21 +9,25 @@
     <body>
         <div id="menu">
             <input type="checkbox" id="speed-toggle" onclick="toggleSpeed(event);"><label for="speed-toggle">Slow motion</label>
-            <ol>
-                <li onclick="doPortrait()">Portrait Mode</li>
-                <li onclick="doLandscape()">Landscape Mode</li>
-                <li>Split Keyboard...
+            <ul>
+                <li>Orientation:
                     <ul>
-                        <li onclick="animateKeyboard('simple')">Simple</li>
-                        <li onclick="animateKeyboard('top-to-bottom')">Top to Bottom</li>
-                        <li onclick="animateKeyboard('bottom-to-top')">Bottom to Top</li>
-                        <li onclick="animateKeyboard('right-to-left-top')">Right to Left (starting from the top)</li>
-                        <li onclick="animateKeyboard('right-to-left-bottom')">Right to Left (starting from the bottom)</li>
-                        <li onclick="animateKeyboard('random')">Random</li>
+                        <li onclick="ani(portrait)" class="menu-active">Portrait</li>
+                        <li onclick="ani(landscape)" class="menu-active">Landscape</li>            
                     </ul>
                 </li>
-                <li onclick="joinKeyboard('join')">Join Keyboard</li>
-            </ol>
+                <li>Split Keyboard:
+                    <ul>
+                        <li onclick="ani(ak, 'simple')" class="menu-active">Simple</li>
+                        <li onclick="ani(ak, 'top-to-bottom')" class="menu-active">Top to Bottom</li>
+                        <li onclick="ani(ak, 'bottom-to-top')" class="menu-active">Bottom to Top</li>
+                        <li onclick="ani(ak, 'right-to-left-top')" class="menu-active">Right to Left (top)</li>
+                        <li onclick="ani(ak, 'right-to-left-bottom')" class="menu-active">Right to Left (bottom)</li>
+                        <li onclick="ani(ak, 'random')" class="menu-active">Random</li>
+                    </ul>
+                </li>
+                <li onclick="ani(jk)" class="menu-active">Join Keyboard</li>
+            </ul>
         </div>
 
         <div id="main"></div>
