@@ -20,6 +20,25 @@ body {
     position: absolute;
     top: 10px;
     left: 10px;
+    font-family: Helvetica, sans-serif;
+    font-size: 20px;
+    z-index: 1;
+}
+
+.menu-active {
+    color: #5F97F6;
+    cursor: pointer;
+}
+
+.menu-inactive {
+    color: #EFEFEF;
+    cursor: default;
+}
+
+#menu input[type='checkbox'] {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
 }
 
 #main {
