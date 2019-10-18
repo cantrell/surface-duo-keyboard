@@ -365,7 +365,7 @@ function jk() { // join keyboard
 }
 
 function toggleSpeed(e) {
-    for (r of document.styleSheets[0].rules) {
+    for (r of document.styleSheets[0].cssRules) {
         if (r.selectorText === ".animatable") {
             r.style["transition-duration"] = (e.target.checked) ? "2.5s" : ".5s";
             return;
