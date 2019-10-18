@@ -233,7 +233,7 @@ function renderKeyboard() {
 function layKeyboardOut(orientation) {
     let keyboard = id("keyboard");
     keyboard.style.width = ((orientation === MODES.LANDSCAPE) ? singleScreenWidth.width : screenHeight.height) + "px";
-    keyboard.style.height = ((orientation === MODES.LANDSCAPE) ? (screenHeight.height - contentHeight) : singleScreenWidth.width) + "px";
+    keyboard.style.height = ((orientation === MODES.LANDSCAPE) ? (screenHeight.height - contentHeight) : singleScreenWidth.width + 1) + "px"; // The +1 is a hack to compensate for ugly gaps caused by pixel rounding.
     let keyData = getKeyDimensions(orientation);
     let top = keyData.keyGap, lastKeyHeight;
     KEYS.forEach(row => {
