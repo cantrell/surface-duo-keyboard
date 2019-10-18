@@ -5,13 +5,13 @@ const FUNCTION_KEY = "function-key";
 const RETURN_KEY   = "return-key";
 const SPACER       = "spacer";
 
-const ORIENTATION = {
+const MODES = {
     PORTRAIT: "portrait",
-    LANDSCAPE: "landscape"
-};
+    LANDSCAPE: "landscape",
+    SPLIT: "split"
+}
 
-let fullScreenWidth, singleScreenWidth, screenHeight, contentHeight;
-let inFlight = 0;
+let fullScreenWidth, singleScreenWidth, screenHeight, contentHeight, mode = MODES.LANDSCAPE;
 
 const KEYS = [
     [
@@ -68,11 +68,11 @@ const KEYS = [
 ]
 
 function init() {
-    // window.addEventListener("resize", doLayout);
+    evalMenu();
     doLayout();
     updateDate();
     renderKeyboard();
-    layKeyboardOut(ORIENTATION.LANDSCAPE);
+    layKeyboardOut(MODES.LANDSCAPE);
 }
 
 function doLayout() {
@@ -88,7 +88,6 @@ function doLayout() {
 
     duo.style.top = (winH / 2) - (duo.height / 2) + "px";
     duo.style.left = (winW / 2) - (duo.width / 2) + "px";
-    duo.addEventListener("transitionend", e => {inFlight = 0;});
 
     fullScreenWidth = duo.contentDocument.getElementById("Full_Screen_Width").getBoundingClientRect();
     singleScreenWidth = duo.contentDocument.getElementById("Single_Screen_Width").getBoundingClientRect();
@@ -137,15 +136,54 @@ function pad(value) {
     return (value > 9) ? value : "0" + value;
 }
 
-// States: inactive (all), landscape (all -portrait), portrait (all -landscape), split (all -)
+const ANI_FUNCS = {
+    [MODES.PORTRAIT]: function() {ani(rotatePortrait)},
+    [MODES.LANDSCAPE]: function() {ani(rotateLandscape)},
+    simple: function() {ani(ak, "simple")},
+    top_to_bottom: function() {ani(ak, "top-to-bottom")},
+    bottom_to_top: function() {ani(ak, "bottom-to-top")},
+    right_to_left_top: function() {ani(ak, "right-to-left-top")},
+    right_to_left_bottom: function() {ani(ak, "right-to-left-bottom")},
+    random: function() {ani(ak, "random")},
+    join: function() {ani(jk)}
+};
 
-function evalMenu(state) {
+function evalMenu() {
+    [MODES.PORTRAIT, MODES.LANDSCAPE].forEach(orientation => {
+        let oElement = id(orientation);
+        if (mode !== orientation && mode !== MODES.SPLIT) {
+            oElement.addEventListener("click", ANI_FUNCS[orientation]);
+            oElement.setAttribute("class", "menu-active");
+        } else {
+            oElement.removeEventListener("click", ANI_FUNCS[orientation]);
+            oElement.setAttribute("class", "menu-inactive");
+        }    
+    });
 
+    ["simple", "top_to_bottom", "bottom_to_top", "right_to_left_top", "right_to_left_bottom", "random"].forEach(split => {
+        let splitElement = id(split);
+        if (mode === MODES.LANDSCAPE && mode !== MODES.SPLIT) {
+            splitElement.addEventListener("click", ANI_FUNCS[split]);
+            splitElement.setAttribute("class", "menu-active");
+        } else {
+            splitElement.removeEventListener("click", ANI_FUNCS[split]);
+            splitElement.setAttribute("class", "menu-inactive");
+        }    
+    })
+
+    let join = id("join");
+    if (mode === MODES.SPLIT) {
+        join.addEventListener("click", ANI_FUNCS.join);
+        join.setAttribute("class", "menu-active");
+    } else {
+        join.removeEventListener("click", ANI_FUNCS.join);
+        join.setAttribute("class", "menu-inactive");
+    }
 }
 
 function getKeyDimensions(orientation) {
     let keyGap, keyWidth, keyHeight, funcKeyHeight;
-    if (orientation === ORIENTATION.LANDSCAPE) {
+    if (orientation === MODES.LANDSCAPE) {
         keyGap = singleScreenWidth.width * 0.015;
         keyWidth = (singleScreenWidth.width / 10) - (keyGap + (keyGap / 10));
         keyHeight = ((parseInt(id("keyboard").style.height) - (keyGap * 5)) / 4);
@@ -186,8 +224,6 @@ function renderKeyboard() {
             newKey.setAttribute("class", classList);
             newKey.addEventListener("transitionend", (e) => {
                 e.target.style['transition-delay'] = "0s";
-                inFlight--;
-                console.log(inFlight);
             })
             keyboard.appendChild(newKey);
         })
@@ -196,8 +232,8 @@ function renderKeyboard() {
 
 function layKeyboardOut(orientation) {
     let keyboard = id("keyboard");
-    keyboard.style.width = ((orientation === ORIENTATION.LANDSCAPE) ? singleScreenWidth.width : screenHeight.height) + "px";
-    keyboard.style.height = ((orientation === ORIENTATION.LANDSCAPE) ? (screenHeight.height - contentHeight) : singleScreenWidth.width) + "px";
+    keyboard.style.width = ((orientation === MODES.LANDSCAPE) ? singleScreenWidth.width : screenHeight.height) + "px";
+    keyboard.style.height = ((orientation === MODES.LANDSCAPE) ? (screenHeight.height - contentHeight) : singleScreenWidth.width) + "px";
     let keyData = getKeyDimensions(orientation);
     let top = keyData.keyGap, lastKeyHeight;
     KEYS.forEach(row => {
@@ -209,7 +245,6 @@ function layKeyboardOut(orientation) {
             }
             let newKey = document.getElementById(key.id);
             newKey.style.width = keyData[key.type].w + "px";
-            // newKey.innerHTML = key.id;
             // Hack to cover up the occasional gap between spacebars due to pixel rounding.
             if (key.id === "left-space-bar") {
                 newKey.style.width = (parseInt(newKey.style.width) + 1) + "px";
@@ -227,13 +262,12 @@ function layKeyboardOut(orientation) {
 }
 
 function ani(func, args) { // animate
-    console.log(inFlight)
-    if (inFlight > 0) return;
     func.apply(this, [args]);
+    evalMenu();
 }
 
-function portrait() {
-    inFlight = 41;
+function rotatePortrait() {
+    mode = MODES.PORTRAIT;
     for (let e of document.getElementsByClassName("content")) {
         let translate = ((screenHeight.height - parseInt(e.style.width, 10)) / 2) * -1;
         e.style.width = screenHeight.height + "px";
@@ -242,8 +276,7 @@ function portrait() {
     }
     id("duo").style.transform = "rotate(90deg)";
     id("screen").style.transform = "rotate(90deg)";
-
-    layKeyboardOut(ORIENTATION.PORTRAIT);
+    layKeyboardOut(MODES.PORTRAIT);
     let keyboard = id("keyboard");
     let translateLeft = (screenHeight.height - singleScreenWidth.width) / 2;
     let translateTop = (fullScreenWidth.width - singleScreenWidth.width) - translateLeft;
@@ -251,8 +284,8 @@ function portrait() {
     keyboard.style.transform = "rotate(-90deg) translate("+Math.floor(translateLeft)+"px, "+translateTop+"px)";
 }
 
-function landscape() {
-    inFlight = 41;
+function rotateLandscape() {
+    mode = MODES.LANDSCAPE;
     for (let e of document.getElementsByClassName("content")) {
         e.style.width = singleScreenWidth.width + "px";
         e.style.height = contentHeight + "px";
@@ -260,7 +293,7 @@ function landscape() {
     }
     id("duo").style.transform = "rotate(0deg)";
     id("screen").style.transform = "rotate(0deg)";
-    layKeyboardOut(ORIENTATION.LANDSCAPE);
+    layKeyboardOut(MODES.LANDSCAPE);
     let keyboard = id("keyboard");
     keyboard.classList.toggle("keyboard-opaque");
     keyboard.style.transform = "rotate(0deg)";
@@ -278,6 +311,7 @@ let keyboardAnimationData = {
 };
 
 function ak(order) { // animate keyboard
+    mode = MODES.SPLIT;
     let keyList, transitionIncrement;
     switch (order) {
         case 'simple':
@@ -312,7 +346,6 @@ function ak(order) { // animate keyboard
         }
 
     let transitionDelay = 0;
-    inFlight = keyboardAnimationData.keyList.length;
     keyboardAnimationData.keyList.forEach(keyId => {
         let key = id(keyId);
         key.style["transition-delay"] = (transitionDelay+=keyboardAnimationData.transitionIncrement) + "s";
@@ -320,11 +353,10 @@ function ak(order) { // animate keyboard
     });
 }
 
-// TODO: Count animation end events, and when all are done, call a function that evaulates menu items.
 function jk() { // join keyboard
+    mode = MODES.LANDSCAPE;
     keyboardAnimationData.keyList.reverse();
     let transitionDelay = 0;
-    inFlight = keyboardAnimationData.keyList.length;
     keyboardAnimationData.keyList.forEach(keyId => {
         let key = id(keyId);
         key.style["transition-delay"] = (transitionDelay+=keyboardAnimationData.transitionIncrement) + "s";

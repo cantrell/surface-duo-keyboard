@@ -4,11 +4,6 @@
     transition: all 0.5s ease-in-out;
 }
 
-/* .fadable {
-    -webkit-transition: opacity .25s ease-in;
-    -moz-transition: opacity .25s ease-in;
-} */
-
 body {
     padding: 0;
     margin: 0;
@@ -31,7 +26,7 @@ body {
 }
 
 .menu-inactive {
-    color: #EFEFEF;
+    color: #cecece;
     cursor: default;
 }
 
@@ -42,20 +37,12 @@ body {
 }
 
 #main {
-    /* border: 1px solid red; */
     position: absolute;
-    /* top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0; */
 }
 
 #duo {
     visibility: hidden;
     position: absolute;
-    /* width: 1080px;
-    height: 847px; */
-    /* opacity: .25; */
 }
 
 #screen {
@@ -68,11 +55,9 @@ body {
 }
 
 #chat {
-    /* background-color: #ff0000; */
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    /* padding: 10px; */
 }
 
 .chat-bubble {
@@ -102,7 +87,6 @@ body {
 }
 
 .status-item {
-    /* height: 16px; */
     height: 1vh;
     padding: 2px;
     opacity: .75;
