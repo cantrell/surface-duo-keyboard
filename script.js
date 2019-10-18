@@ -83,7 +83,7 @@ function doLayout() {
     winH = window.innerHeight;
 
     let narrowestDimenstion = (winW > winH) ? winH : winW;
-    duo.height = narrowestDimenstion * .70;
+    duo.height = narrowestDimenstion * .80;
     duo.width = duo.height / 0.784477611940299;
 
     duo.style.top = (winH / 2) - (duo.height / 2) + "px";
