@@ -5,3 +5,5 @@ Playing around with how a virtual keyboard might work across two different scree
 Check it out here:
 
 https://cantrell.github.io/surface-duo-keyboard/
+
+(Animations are smoothest on Chrome.)
