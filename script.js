@@ -11,7 +11,7 @@ const MODES = {
     SPLIT: "split"
 }
 
-let fullScreenWidth, singleScreenWidth, screenHeight, contentHeight, mode = MODES.LANDSCAPE;
+let fullScreenWidth, singleScreenWidth, screenHeight, contentHeight, winTimerId = -1, mode = MODES.LANDSCAPE;
 
 const KEYS = [
     [
@@ -68,14 +68,20 @@ const KEYS = [
 ]
 
 function init() {
+    window.addEventListener("resize", () => {
+        clearTimeout(winTimerId);
+        winTimerId = setTimeout(() => {
+            doLayout();
+        }, 500);
+    });
     evalMenu();
     doLayout();
+    setInterval(updateDate, (60*1000));
     updateDate();
-    renderKeyboard();
-    layKeyboardOut(MODES.LANDSCAPE);
 }
 
 function doLayout() {
+    toggleAnimationOnOff();
     let duo = id("duo");
     let screen = id("screen");
 
@@ -89,6 +95,7 @@ function doLayout() {
     duo.style.top = (winH / 2) - (duo.height / 2) + "px";
     duo.style.left = (winW / 2) - (duo.width / 2) + "px";
 
+    // Use the rulers embedded inside the SVG to measure screen size.
     fullScreenWidth = duo.contentDocument.getElementById("Full_Screen_Width").getBoundingClientRect();
     singleScreenWidth = duo.contentDocument.getElementById("Single_Screen_Width").getBoundingClientRect();
     screenHeight = duo.contentDocument.getElementById("Screen_Height").getBoundingClientRect();
@@ -105,11 +112,15 @@ function doLayout() {
     screen.style.top = (winH / 2) - (screen.offsetHeight / 2) + "px";
     screen.style.left = (winW / 2) - (screen.offsetWidth / 2) + "px";
 
-    id("main").appendChild(screen);
-    id("main").appendChild(duo);
     for (e of document.getElementsByClassName("content")) {
         e.style.width = singleScreenWidth.width + "px";
         e.style.height = contentHeight + "px";
+    }
+
+    for (e of document.getElementsByClassName("time")) {
+        let fontSize = (e.id !== "date") ? (contentHeight / 6) : (contentHeight / 25);
+        e.style["font-size"] = ((e.id !== "date") ? (contentHeight / 6) : (contentHeight / 25)) + "px";
+        e.style["line-height"] = fontSize + "px";
     }
 
     let chat = id("chat");
@@ -121,6 +132,11 @@ function doLayout() {
 
     duo.style.visibility = "visible";
     screen.style.visibility = "visible";
+
+    renderKeyboard();
+    layKeyboardOut(MODES.LANDSCAPE);
+
+    toggleAnimationOnOff();
 }
 
 function updateDate() {
@@ -206,7 +222,11 @@ function getKeyDimensions(orientation) {
 
 function renderKeyboard() {
     let screen = id("screen");
-    let keyboard = document.createElement("div");
+    let keyboard = id("keyboard");
+    if (keyboard) {
+        screen.removeChild(keyboard);
+    }
+    keyboard = document.createElement("div");
     keyboard.style.position = "absolute";
     keyboard.style.bottom = "0px";
     keyboard.style.left = "0px";
@@ -233,7 +253,7 @@ function renderKeyboard() {
 function layKeyboardOut(orientation) {
     let keyboard = id("keyboard");
     keyboard.style.width = ((orientation === MODES.LANDSCAPE) ? singleScreenWidth.width : screenHeight.height) + "px";
-    keyboard.style.height = ((orientation === MODES.LANDSCAPE) ? (screenHeight.height - contentHeight) : singleScreenWidth.width + 1) + "px"; // The +1 is a hack to compensate for ugly gaps caused by pixel rounding.
+    keyboard.style.height = ((orientation === MODES.LANDSCAPE) ? (screenHeight.height - contentHeight) : singleScreenWidth.width) + "px";
     let keyData = getKeyDimensions(orientation);
     let top = keyData.keyGap, lastKeyHeight;
     KEYS.forEach(row => {
@@ -365,10 +385,18 @@ function jk() { // join keyboard
 }
 
 function toggleSpeed(e) {
+    getAnimatable().style["transition-duration"] = (e.target.checked) ? "2.5s" : ".5s";
+}
+
+function toggleAnimationOnOff() {
+    let r = getAnimatable();
+    r.style["transition-property"] = (r.style["transition-property"] === "all") ? "none" : "all";
+}
+
+function getAnimatable() {
     for (r of document.styleSheets[0].cssRules) {
         if (r.selectorText === ".animatable") {
-            r.style["transition-duration"] = (e.target.checked) ? "2.5s" : ".5s";
-            return;
+            return r;
         }
     }
 }
